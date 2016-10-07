@@ -399,12 +399,12 @@ ARM Macro Assembler    Page 7
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M0 --apcs=interw
 ork --depend=stm32f0_braille_v1.0\startup_stm32f051x8.d -ostm32f0_braille_v1.0\
-startup_stm32f051x8.o -IC:\Users\acer\Desktop\EM\STM32F0_SPL\STM32F0_BRAILLE_RT
-C_Wakeup_V1.1\STM32F0_EM_V1\MDK-ARM\RTE -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-B
-eta4\CMSIS\Include -IC:\Keil_v5\ARM\PACK\Keil\STM32F0xx_DFP\1.5.0\Device\Includ
-e --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 518" --pr
-edefine="_RTE_ SETA 1" --predefine="STM32F051x8 SETA 1" --list=startup_stm32f05
-1x8.lst startup_stm32f051x8.s
+startup_stm32f051x8.o -IC:\Users\acer\Desktop\Data\nx-iot\nx-em-fw\EM_STM32F0_D
+emo\STM32F0_EM_V1\MDK-ARM\RTE -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS
+\Include -IC:\Keil_v5\ARM\PACK\Keil\STM32F0xx_DFP\1.5.0\Device\Include --predef
+ine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 518" --predefine="_
+RTE_ SETA 1" --predefine="STM32F051x8 SETA 1" --list=startup_stm32f051x8.lst st
+artup_stm32f051x8.s
 
 
 

@@ -100,5 +100,7 @@ int8_t mqtt_callback();
 int8_t mqtt_parser(uint8_t * val, uint16_t len);
 int8_t mqtt_ack_ping(uint8_t *val, uint16_t len);
 int8_t mqtt_ping();
+int8_t mqtt_ack_pinging();
+int8_t mqtt_ack_pub(uint16_t pack_id);
 extern mqtt_t mqtt;
 #endif 

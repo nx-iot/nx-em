@@ -625,6 +625,7 @@ int8_t mqtt_parser(uint8_t * val, uint16_t len){
 				print_debug(0,"[MQTT_CALLBACK]PUBLISH MID(%d DCE)\n",ret_pack_id);
 				print_payload(0,(uint8_t*)&ret_pack_id,sizeof(uint16_t));
 				net_callback(mqtt_data_rx.topic.value, mqtt_data_rx.topic.length, &mqtt_data_rx.payload.value[2], mqtt_data_rx.payload.length-2, (uint16_t)ret_pack_id);
+				mqtt_ack_pub(ret_pack_id);
 				ret = 1;
 				indexread += len_remain+2;
 			}else if((val[indexread+0] & 0x06) == (uint8_t)MQTT_QOS2){
@@ -664,7 +665,8 @@ int8_t mqtt_parser(uint8_t * val, uint16_t len){
 			buf_ack[1] = (uint8_t)0x00;
 			print_debug(0,"[MQTT_CALLBACK]PINGREQ(0xC0) Packet ID(%d)\n",ret_pack_id);
 			//wifi_write(buf_ack,2);
-			mqtt_ack_ping(buf_ack,2);
+			//mqtt_ack_ping(buf_ack,2);
+			mqtt_ack_pinging();
 			ret = 1;
 		}else if(header_control == (uint8_t)0xD0){
 			len_remain = val[indexread+1];
@@ -732,6 +734,60 @@ int8_t mqtt_ack_ping(uint8_t *val, uint16_t len){
 		ret = gsm_write(&ctrl_z,1);
 		HAL_Delay(1000);
 	}
+	return ret;
+}
+
+int8_t mqtt_ack_pinging(){
+	int8_t ret;
+	uint16_t idx_w = 0;
+	char at_buf[30];
+		uint16_t i = 0;
+	
+	mqtt_buf[idx_w++] = MQTT_PINGRESP;
+		
+	//Length Remain
+	mqtt_buf[idx_w++] = 0;
+	
+	
+	print_debug(0,"[INFO]MQTT Ping Response Packet Len(%d):\n",idx_w);
+	print_payload(0,(const unsigned char*)mqtt_buf, idx_w);
+	print_debug(0,"\n");
+	
+
+	ret = gsm_write(mqtt_buf,idx_w);
+	
+	
+	return ret;
+}
+
+int8_t mqtt_ack_pub(uint16_t pack_id){
+	int8_t ret;
+	uint16_t idx_w = 0;
+	char at_buf[30];
+		uint16_t i = 0;
+	
+	mqtt_buf[idx_w++] = MQTT_PUBACK;
+		
+	//Length Remain
+	mqtt_buf[idx_w++] = 0;
+	
+	//Variable header
+	memcpy(&mqtt_buf[idx_w],&pack_id,sizeof(uint16_t));
+	idx_w += sizeof(uint16_t);
+	
+	
+	
+	//Update Length Remaining
+	mqtt_buf[1] = (idx_w - 2);
+	
+	print_debug(0,"[INFO]MQTT Publish Ack Packet Len(%d):\n",idx_w);
+	print_payload(0,(const unsigned char*)mqtt_buf, idx_w);
+	print_debug(0,"\n");
+	
+
+	ret = gsm_write(mqtt_buf,idx_w);
+	
+	
 	return ret;
 }
 

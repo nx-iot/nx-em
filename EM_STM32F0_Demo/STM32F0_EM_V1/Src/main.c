@@ -80,9 +80,12 @@ extern int num_sendGPS;
 extern int newADC_int;
 
 int8_t ret = 0;
-uint8_t mqtt_user[32] = "nx_device";
-uint8_t mqtt_aio_key[32] = "25353f7437f14595a69bee0f970cf62d";	//new gen
+//uint8_t mqtt_user[32] = "nx_device";
+//uint8_t mqtt_aio_key[32] = "25353f7437f14595a69bee0f970cf62d";	//new gen
+uint8_t mqtt_user[32] = "rxkyknky";//8
+uint8_t mqtt_aio_key[32] = "9-KgEzIl7Uyc";	//new gen 12
 uint8_t mqtt_client_id[32] = "nx-smart-device";
+
 char Longitude[20];
 char Latitude[20];
 char conLongitude[20];
@@ -179,7 +182,7 @@ int main(void)
 
 		HAL_Delay(2000);
 		print_debug(0,"[GSM] Net Connect Complete...\r\n");
-		while(mqtt_connect(mqtt_user, 9, mqtt_aio_key, 32, mqtt_client_id, 15)==0)
+		while(mqtt_connect(mqtt_user, 8, mqtt_aio_key, 12, mqtt_client_id, 15)==0)
 		{
 			HAL_Delay(1000);
 		}
@@ -419,7 +422,8 @@ void Test_Con(void)
 	//HAL_Delay(100);
 	print_debug(0,"[GSM]AT+CIPSTART=\"TCP\",\"io.codeunbug.com\",\"5555\"\r\n");
 	//while(SsendATcommand((uint8_t*)"AT+CIPSTART=\"TCP\",\"io.codeunbug.com\",\"5555\"\r\n",45,(uint8_t*)"\r\nOK\r\n\r\nCONNECT\r\n",15,10000)==0);
-	while(SsendATcommand((uint8_t*)"AT+CIPSTART=\"TCP\",\"mqtt.codeunbug.com\",\"1883\"\r\n",47,(uint8_t*)"\r\nOK\r\n\r\nCONNECT\r\n",15,8000)==0)
+	//while(SsendATcommand((uint8_t*)"AT+CIPSTART=\"TCP\",\"mqtt.codeunbug.com\",\"1883\"\r\n",47,(uint8_t*)"\r\nOK\r\n\r\nCONNECT\r\n",15,8000)==0)
+	while(SsendATcommand((uint8_t*)"AT+CIPSTART=\"TCP\",\"m10.cloudmqtt.com\",\"19242\"\r\n",48,(uint8_t*)"\r\nOK\r\n\r\nCONNECT\r\n",15,8000)==0)
 	{
 		HAL_Delay(500);
 	}
